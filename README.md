@@ -51,6 +51,22 @@ python tools/replay.py logs/phase1.jsonl
 
 The supplied coordinates are a generic simulator example. Change the config for your simulator world, keeping the geofence tight around the test route. Do not use the demo config for a real aircraft.
 
+## Phase 2: multi-agent formation simulation
+
+The Phase 2 simulator creates 3–5 named point-mass agents, shares immutable state snapshots with monotonically increasing per-agent sequence numbers, and computes each time step from the same snapshot. Followers combine a leader-relative echelon slot with Reynolds-style cohesion, alignment, and separation terms. The fixed leader makes this first controller easy to inspect and tune; a fully leaderless flock is a more resilient alternative, but needs separate coordination and convergence analysis.
+
+Agent names map to a stable namespace convention such as `/agent-03`. The current shared world model is an in-process Python interface; this workspace does not have ROS 2 installed, so namespaced ROS 2 nodes and DDS transport are not yet implemented. The simulation is kinematic and does not model wind, vehicle dynamics, obstacles, sensors, or link loss. Its results are software evidence only, not evidence of flight safety.
+
+Run a five-agent simulation:
+
+```powershell
+python tools/run_phase2.py --agents 5 --seed 21
+```
+
+The CLI reports formation RMS error, minimum pairwise distance, and collision count. The automated checks run 3, 4, and 5 agents over 10 fixed seeds each; each run converges below 1.6 m formation RMS error with no pairwise separation below 2 m. Change the seed to reproduce other initial offsets.
+
+The 2D point-mass model is deliberately simple and fast to test. A physics-based simulator with actuator limits, sensor error, and network delay is the next step before drawing conclusions about real vehicle behavior.
+
 ## Phase 1 limits
 
 - The waypoint fence runs before upload; it does not enforce a live boundary during flight. Configure and verify PX4's native geofence and failsafes separately.
