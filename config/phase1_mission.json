@@ -1,0 +1,16 @@
+{
+  "speed_m_s": 3.0,
+  "geofence": {
+    "min_latitude_deg": 47.3970,
+    "max_latitude_deg": 47.4000,
+    "min_longitude_deg": 8.5440,
+    "max_longitude_deg": 8.5475,
+    "min_altitude_m": 5.0,
+    "max_altitude_m": 30.0
+  },
+  "waypoints": [
+    {"latitude_deg": 47.3980, "longitude_deg": 8.5456, "relative_altitude_m": 10.0},
+    {"latitude_deg": 47.3983, "longitude_deg": 8.5460, "relative_altitude_m": 10.0},
+    {"latitude_deg": 47.3985, "longitude_deg": 8.5455, "relative_altitude_m": 10.0}
+  ]
+}
